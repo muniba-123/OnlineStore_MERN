@@ -28,7 +28,7 @@ import {
   ORDER_STATUS_RESET,
   orderStatuses,
 } from "../constants/order-constants";
-import CheckoutForm from "../components/CheckoutForm";
+// import CheckoutForm from "../components/CheckoutForm";
 
 // const stripePromise = axios
 // 	.get('/api/payments/config/stripe-pk')

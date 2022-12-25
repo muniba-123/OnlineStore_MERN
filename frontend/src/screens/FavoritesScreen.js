@@ -39,7 +39,7 @@ const FavoritesScreen = ({ match }) => {
 			) : (
 				<>
 					<h1>YOU HAVE NO FAVORITE PRODUCTS</h1>
-					<Link to='/' className='btn btn-light'>
+					<Link to='/' className='btn'>
 						Go Products
 					</Link>
 				</>

@@ -5,7 +5,7 @@ import Rating from './Rating';
 
 const Product = ({ product, isFavorite, removeFromFavorites }) => {
 	return (
-		<Card className='my-3 p-3 rounded'>
+		<Card className='my-3 p-3 px-2 rounded product-card'>
 			<Link to={`/product/${isFavorite ? product.product : product._id}`}>
 				<Card.Img src={product.image} variant='top' />
 			</Link>
@@ -26,7 +26,7 @@ const Product = ({ product, isFavorite, removeFromFavorites }) => {
 			{product.product && (
 				<Button
 					type='button'
-					variant='light'
+					className='border-0'
 					onClick={() => removeFromFavorites(product.product)}
 				>
 					<i className='fas fa-trash fa-2x'></i>

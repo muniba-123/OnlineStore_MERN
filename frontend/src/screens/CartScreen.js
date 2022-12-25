@@ -39,7 +39,7 @@ const CartScreen = ({ match, location, history }) => {
 
 	return (
 		<>
-			<Row>
+			<Row >
 				<Meta title='Shopping Cart' />
 				<Col md={8}>
 					<h1>Shopping Cart</h1>
@@ -51,7 +51,7 @@ const CartScreen = ({ match, location, history }) => {
 						<ListGroup variant='flush'>
 							{cartItems.map((item) => (
 								<ListGroup.Item key={item.product}>
-									<Row>
+									<Row className='align-items-center'>
 										<Col md={2}>
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
@@ -79,7 +79,6 @@ const CartScreen = ({ match, location, history }) => {
 										<Col md={2}>
 											<Button
 												type='button'
-												variant='light'
 												onClick={() => removeFromCartHandler(item.product)}
 											>
 												<i className='fas fa-trash'></i>

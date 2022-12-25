@@ -26,7 +26,7 @@ import {
 } from '../constants/product-constants';
 
 // action creators
-export const listProducts = (keyword = '', pageNumber = '') => async (
+export const listProducts = (keyword = '', pageNumber = '',category='') => async (
 	dispatch
 ) => {
 	try {
@@ -35,7 +35,7 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
 		});
 
 		const { data } = await axios.get(
-			`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+			`/api/products?keyword=${keyword}&pageNumber=${pageNumber}&category=${category}`
 		);
 
 		dispatch({
@@ -109,10 +109,10 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 	}
 };
 
-export const createProduct = () => async (dispatch, getState) => {
+export const createProduct = (product) => async (dispatch, getState) => {
 	try {
 		dispatch({
-			type: PRODUCT_CREATE_REQUEST,
+			type: PRODUCT_UPDATE_REQUEST,
 		});
 
 		const {
@@ -125,15 +125,15 @@ export const createProduct = () => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = await axios.post(`/api/products`, {}, config);
+		const { data } = await axios.post(`/api/products`, product, config);
 
 		dispatch({
-			type: PRODUCT_CREATE_SUCCESS,
+			type: PRODUCT_UPDATE_SUCCESS,
 			payload: data,
 		});
 	} catch (error) {
 		dispatch({
-			type: PRODUCT_CREATE_FAIL,
+			type: PRODUCT_UPDATE_FAIL,
 			payload:
 				error.response && error.response.data.message
 					? error.response.data.message

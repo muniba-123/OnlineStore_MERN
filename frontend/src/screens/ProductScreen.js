@@ -99,7 +99,7 @@ const ProductScreen = ({ history, match }) => {
 
 	return (
 		<>
-			<Link className='btn btn-light my-3' to='/'>
+			<Link className='btn my-3' to='/'>
 				Go Back
 			</Link>
 			{loading ? (
@@ -121,14 +121,13 @@ const ProductScreen = ({ history, match }) => {
 								<ListGroup.Item>
 									<Rating
 										value={product.rating}
-										text={`${product.numReviews} reviews`}
+										text={`${product.numReviews} ${product.numReviews!==1?"reviews":"review"}`}
 									/>
 								</ListGroup.Item>
 								{userInfo && (
 									<ListGroup.Item>
 										<div
 											onClick={addToFavoritesHandler}
-											variant='light'
 											type='button'
 											className='like-center'
 											disabled={product.countInStock === 0}
@@ -144,9 +143,9 @@ const ProductScreen = ({ history, match }) => {
 									</ListGroup.Item>
 								)}
 
-								<ListGroup.Item>Price: Rs. {product.price}</ListGroup.Item>
+								<ListGroup.Item><span className='font-weight-bold'>Price:</span> Rs. {product.price}</ListGroup.Item>
 								<ListGroup.Item>
-									Description: {product.description}
+								<span className='font-weight-bold'>Description:</span> {product.description}
 								</ListGroup.Item>
 							</ListGroup>
 						</Col>
@@ -231,6 +230,7 @@ const ProductScreen = ({ history, match }) => {
 													as='select'
 													value={rating}
 													onChange={(e) => setRating(e.target.value)}
+													required
 												>
 													<option value=''>Select...</option>
 													<option value='1'>1 - Poor</option>
@@ -247,6 +247,7 @@ const ProductScreen = ({ history, match }) => {
 													row='3'
 													value={comment}
 													onChange={(e) => setComment(e.target.value)}
+													required
 												></Form.Control>
 											</Form.Group>
 											<Button type='submit' variant='primary'>

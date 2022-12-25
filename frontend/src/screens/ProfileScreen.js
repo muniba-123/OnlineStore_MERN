@@ -62,7 +62,7 @@ const ProfileScreen = ({ location, history }) => {
 		<>
 			<Meta title='Profile' />
 			<Row>
-				<Col md={3}>
+				<Col md={3} className="overflow-hidden">
 					<h2>User Profile</h2>
 					{message && <Message variant='danger'>{message}</Message>}
 					{error && <Message variant='danger'>{error}</Message>}
@@ -149,7 +149,7 @@ const ProfileScreen = ({ location, history }) => {
 										</td>
 										<td>
 											<LinkContainer to={`/order/${order._id}`}>
-												<Button className='btn-sm' variant='light'>
+												<Button className='btn-sm'>
 													Details
 												</Button>
 											</LinkContainer>

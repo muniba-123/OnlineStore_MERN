@@ -31,3 +31,4 @@ export const ORDER_STATUS_FAIL = 'ORDER_STATUS_FAIL';
 export const ORDER_STATUS_RESET = 'ORDER_STATUS_RESET';
 
 export const orderStatuses=["Pending","Shipped","Delivered","Cancelled"]
+

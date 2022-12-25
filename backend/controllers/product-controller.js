@@ -7,7 +7,7 @@ import Product from '../models/product-model.js';
 const getProducts = asyncHandler(async (req, res) => {
 	const pageSize = 10;
 	const page = Number(req.query.pageNumber) || 1;
-
+	const category = req.query.category
 	// get item from query string
 	const keyword = req.query.keyword
 		? {
@@ -19,10 +19,11 @@ const getProducts = asyncHandler(async (req, res) => {
 		: {};
 
 	const count = await Product.countDocuments({ ...keyword });
-	const products = await Product.find({ ...keyword })
+	const obj={ ...keyword }
+	if(category) obj.category=category;
+	const products = await Product.find(obj)
 		.limit(pageSize)
 		.skip(pageSize * (page - 1));
-
 	res.json({
 		products,
 		page,
@@ -63,19 +64,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @route           POST /api/products
 // @access          Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-	const product = new Product({
-		name: 'Sample Name',
-		price: 0,
-		user: req.user._id,
-		image: '/images/sample.jpg',
-		brand: 'Sample brand',
-		category: 'Sample Category',
-		countInStock: 0,
-		numReviews: 0,
-		description: 'Sample description',
-	});
-
-	const createdProduct = await product.save();
+	const product={...req.body,user:req.user._id}
+	const createdProduct = await Product.create(product);
 	res.status(201).json(createdProduct);
 });
 

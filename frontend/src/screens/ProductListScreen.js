@@ -12,6 +12,7 @@ import {
 	createProduct,
 } from '../actions/product-actions';
 import { PRODUCT_CREATE_RESET } from '../constants/product-constants';
+import { Link } from 'react-router-dom';
 
 const ProductListScreen = ({ history, match }) => {
 	const pageNumber = match.params.pageNumber || 1;
@@ -65,11 +66,6 @@ const ProductListScreen = ({ history, match }) => {
 			dispatch(deleteProduct(id));
 		}
 	};
-
-	const createProductHandler = () => {
-		dispatch(createProduct());
-	};
-
 	return (
 		<>
 			<Meta title='Product List' />
@@ -77,8 +73,11 @@ const ProductListScreen = ({ history, match }) => {
 				<Col>
 					<h1>Products</h1>
 					<Col className='text-right'>
-						<Button className='my-3' onClick={createProductHandler}>
-							<i className='fas fa-plus'></i> Create Product
+						<Button className='my-3' >
+							<i className='fas fa-plus mr-1'></i> 
+							<Link to={ `/admin/product` }>
+							Create Product
+					</Link>
 						</Button>
 					</Col>
 				</Col>
@@ -114,7 +113,7 @@ const ProductListScreen = ({ history, match }) => {
 									<td>{product.brand}</td>
 									<td>
 										<LinkContainer to={`/admin/product/${product._id}/edit`}>
-											<Button variant='light' className='btn-sm'>
+											<Button className='btn-sm'>
 												<i className='fas fa-edit'></i>
 											</Button>
 										</LinkContainer>
