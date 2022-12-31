@@ -1,2 +1,2 @@
 Order statuses: Pending, Shipped, Received, Cancelled
-https://colorlib.com/wp/template/electro/
+https://accounts.google.com/b/0/DisplayUnlockCaptcha

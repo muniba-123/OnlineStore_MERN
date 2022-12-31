@@ -20,7 +20,8 @@ const LoginScreen = ({ location, history }) => {
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	useEffect(() => {
-		if (userInfo) {
+		debugger;
+		if (userInfo && userInfo?.isVerified) {
 			history.push(redirect);
 		}
 	}, [history, userInfo, redirect]);
@@ -34,7 +35,17 @@ const LoginScreen = ({ location, history }) => {
 		<FormContainer>
 			<Meta title='Login' />
 			<h1>Sign In</h1>
-			{error && <Message variant='danger'>{error}</Message>}
+			{
+				error &&
+				<>
+				{error==="User not verified"? 
+			<Message variant='danger'>{error}. 
+			<Link to={"/code"}> Click here</Link> to verify your account.
+			</Message>:
+			<Message variant='danger'>{error}</Message>
+			}
+				</>
+			}
 			{loading && <Loader />}
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId='email'>

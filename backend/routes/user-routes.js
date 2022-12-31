@@ -4,6 +4,7 @@ import {
 	getUserProfile,
 	registerUser,
 	updateUserProfile,
+	verifyCode,
 	getUsers,
 	deleteUser,
 	getUserById,
@@ -13,11 +14,10 @@ import {
 	getFavoriteProducts,
 } from '../controllers/user-controller.js';
 import { protect, isAdmin } from '../middleware/auth-middleware.js';
-
 const router = express.Router();
-
 router.route('/').post(registerUser).get(protect, isAdmin, getUsers);
 router.post('/login', authUser);
+router.post('/verifyCode', verifyCode);
 router
 	.route('/profile')
 	.get(protect, getUserProfile)

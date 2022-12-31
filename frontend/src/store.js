@@ -10,6 +10,13 @@ import {
 	productReviewCreateReducer,
 	productTopRatedReducer,
 } from './reducers/product-reducers';
+import {
+	categoryListReducer,
+	categoryDetailsReducer,
+	categoryDeleteReducer,
+	categoryCreateReducer,
+	categoryUpdateReducer,
+} from './reducers/category-reducers';
 import { cartReducer } from './reducers/cart-reducers';
 import {
 	userLoginReducer,
@@ -41,6 +48,11 @@ const reducer = combineReducers({
 	productUpdate: productUpdateReducer,
 	productReviewCreate: productReviewCreateReducer,
 	productTopRated: productTopRatedReducer,
+	categoryList: categoryListReducer,
+	categoryDetails: categoryDetailsReducer,
+	categoryDelete: categoryDeleteReducer,
+	categoryCreate: categoryCreateReducer,
+	categoryUpdate: categoryUpdateReducer,
 	cart: cartReducer,
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,

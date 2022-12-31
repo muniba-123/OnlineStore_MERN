@@ -4,52 +4,49 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import Paginate from '../components/Paginate';
 import Meta from '../components/Meta';
 import {
-	listProducts,
-	deleteProduct,
-	createProduct,
-} from '../actions/product-actions';
-import { categories, PRODUCT_CREATE_RESET } from '../constants/product-constants';
+	listCategories,
+	deleteCategory,
+} from '../actions/category-actions';
+import { CATEGORY_CREATE_RESET } from '../constants/category-constants';
 import { Link } from 'react-router-dom';
 
-const ProductListScreen = ({ history, match }) => {
-	const pageNumber = match.params.pageNumber || 1;
+const CategoryListScreen = ({ history, match }) => {
+	
 	const dispatch = useDispatch();
-
-	const productList = useSelector((state) => state.productList);
-	const { loading, error, products, pages, page } = productList;
-
-	const productDelete = useSelector((state) => state.productDelete);
+	const categoryList = useSelector((state) => state.categoryList);
+	const { loading, error, categories } = categoryList;
+	const categoryDelete = useSelector((state) => state.categoryDelete);
+	const index=categories.map(item=>item.name).indexOf("All")
+	if (index > -1) { 
+		categories.splice(index, 1); 
+	  }
 	const {
 		loading: loadingDelete,
 		error: errorDelete,
 		success: successDelete,
-	} = productDelete;
+	} = categoryDelete;
 
-	const productCreate = useSelector((state) => state.productCreate);
+	const categoryCreate = useSelector((state) => state.categoryCreate);
 	const {
 		loading: loadingCreate,
 		error: errorCreate,
 		success: successCreate,
-		product: createdProduct,
-	} = productCreate;
+		category: createdCategory,
+	} = categoryCreate;
 
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
-
 	useEffect(() => {
-		dispatch({ type: PRODUCT_CREATE_RESET });
-
+		dispatch({ type: CATEGORY_CREATE_RESET });
 		if (!userInfo.isAdmin) {
 			history.push('/login');
 		}
-
 		if (successCreate) {
-			history.push(`/admin/product/${createdProduct._id}/edit`);
+			history.push(`/admin/category/${createdCategory._id}/edit`);
 		} else {
-			dispatch(listProducts('', pageNumber));
+			dispatch(listCategories());
 		}
 	}, [
 		dispatch,
@@ -57,26 +54,25 @@ const ProductListScreen = ({ history, match }) => {
 		userInfo,
 		successDelete,
 		successCreate,
-		createdProduct,
-		pageNumber,
+		createdCategory,
 	]);
 
 	const deleteHandler = (id) => {
 		if (window.confirm('Are you sure')) {
-			dispatch(deleteProduct(id));
+			dispatch(deleteCategory(id));
 		}
 	};
 	return (
 		<>
-			<Meta title='Product List' />
+			<Meta title='Category List' />
 			<Row className='align-items-center'>
 				<Col>
-					<h1>Products</h1>
+					<h1>Categories</h1>
 					<Col className='text-right'>
 						<Button className='my-3' >
 							<i className='fas fa-plus mr-1'></i> 
-							<Link to={ `/admin/product` }>
-							Create Product
+							<Link to={ `/admin/category` }>
+							Create Category
 					</Link>
 						</Button>
 					</Col>
@@ -91,7 +87,7 @@ const ProductListScreen = ({ history, match }) => {
 			) : error ? (
 				<Message variant='danger'>{error}</Message>
 			) : 
-			products?.length<1?
+			categories?.length<1?
 			<Message variant='info'>No data</Message>:
 			(
 				<>
@@ -100,22 +96,16 @@ const ProductListScreen = ({ history, match }) => {
 							<tr>
 								<th>ID</th>
 								<th>NAME</th>
-								<th>PRICE</th>
-								<th>CATEGORY</th>
-								<th>BRAND</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							{products?.map((product) => (
-								<tr key={product._id}>
-									<td>{product._id}</td>
-									<td>{product.name}</td>
-									<td>Rs. {product.price}</td>
-									<td>{product.category}</td>
-									<td>{product.brand}</td>
+							{categories?.map((category) => (
+								<tr key={category._id}>
+									<td>{category._id}</td>
+									<td>{category.name}</td>
 									<td>
-										<LinkContainer to={`/admin/product/${product._id}/edit`}>
+										<LinkContainer to={`/admin/category/${category._id}/edit`}>
 											<Button className='btn-sm'>
 												<i className='fas fa-edit'></i>
 											</Button>
@@ -123,7 +113,7 @@ const ProductListScreen = ({ history, match }) => {
 										<Button
 											variant='danger'
 											className='btn-sm'
-											onClick={() => deleteHandler(product._id)}
+											onClick={() => deleteHandler(category._id)}
 										>
 											<i className='fas fa-trash'></i>
 										</Button>
@@ -132,11 +122,10 @@ const ProductListScreen = ({ history, match }) => {
 							))}
 						</tbody>
 					</Table>
-					<Paginate pages={pages} page={page} isAdmin={true} />
 				</>
 			)}
 		</>
 	);
 };
 
-export default ProductListScreen;
+export default CategoryListScreen;

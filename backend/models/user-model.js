@@ -31,6 +31,7 @@ const favoriteSchema = mongoose.Schema(
 			required: true,
 			ref: 'Product',
 		},
+		
 	},
 	{
 		timestamps: true,
@@ -53,6 +54,15 @@ const userSchema = mongoose.Schema(
 			required: true,
 		},
 		isAdmin: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		code:{
+			type: Number,
+			required: false,
+		},
+		isVerified:{
 			type: Boolean,
 			required: true,
 			default: false,

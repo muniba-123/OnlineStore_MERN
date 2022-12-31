@@ -7,6 +7,7 @@ import {
 	USER_LOGIN_FAIL,
 	USER_LOGIN_LOGOUT,
 	USER_LOGIN_REQUEST,
+	USER_LOGIN_ERR_RESET,
 	USER_LOGIN_SUCCESS,
 	USER_REGISTER_FAIL,
 	USER_REGISTER_REQUEST,
@@ -105,18 +106,18 @@ export const register = (name, email, password) => async (dispatch) => {
 			{ name, email, password },
 			config
 		);
-
+data.isVerified=false;
 		dispatch({
 			type: USER_REGISTER_SUCCESS,
 			payload: data,
 		});
 
-		dispatch({
-			type: USER_LOGIN_SUCCESS,
-			payload: data,
-		});
+		// dispatch({
+		// 	type: USER_LOGIN_SUCCESS,
+		// 	payload: data,
+		// });
 
-		localStorage.setItem('userInfo', JSON.stringify(data));
+		// localStorage.setItem('userInfo', JSON.stringify(data));
 	} catch (error) {
 		dispatch({
 			type: USER_REGISTER_FAIL,

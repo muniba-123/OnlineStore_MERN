@@ -23,8 +23,12 @@ const RegisterScreen = ({ location, history }) => {
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	useEffect(() => {
-		if (userInfo) {
-			history.push(redirect);
+		if (userInfo?.isVerified) {
+			history.push("/");
+		}
+		else if(userInfo && !userInfo?.isVerified){
+			alert("A verification code has been sent to your email account.")
+			history.push("/code");
 		}
 	}, [history, userInfo, redirect]);
 
@@ -34,6 +38,7 @@ const RegisterScreen = ({ location, history }) => {
 			setMessage('Passwords do not match');
 		} else {
 			dispatch(register(name, email, password));
+			
 		}
 	};
 

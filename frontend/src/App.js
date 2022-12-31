@@ -17,8 +17,11 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import CategoryListScreen from './screens/CategoryListScreen';
+import CategoryEditScreen from './screens/CategoryEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
+import Code from './screens/Code';
 
 const App = () => {
 	return (
@@ -31,6 +34,7 @@ const App = () => {
 					<Route path='/placeorder' component={PlaceOrderScreen} />
 					{/* <Route path='/payment' component={PaymentScreen} /> */}
 					<Route path='/login' component={LoginScreen} />
+					<Route path='/code' component={Code} />
 					<Route path='/register' component={RegisterScreen} />
 					<Route path='/profile' component={ProfileScreen} />
 					<Route path='/favorites' component={FavoritesScreen} />
@@ -48,9 +52,19 @@ const App = () => {
 						component={ProductListScreen}
 						exact
 					/>
+					
 					<Route path='/admin/product/:id/edit' component={ProductEditScreen} exact/>
 					<Route path='/admin/product' component={ProductEditScreen} exact/>
 
+
+					<Route
+						path='/admin/categorylist'
+						component={CategoryListScreen}
+						exact
+					/>
+					
+					<Route path='/admin/category/:id/edit' component={CategoryEditScreen} exact/>
+					<Route path='/admin/category' component={CategoryEditScreen} exact/>
 					<Route path='/admin/orderlist' component={OrderListScreen} />
 					<Route path='/search/:keyword' component={HomeScreen} exact />
 					<Route path='/page/:pageNumber' component={HomeScreen} exact />

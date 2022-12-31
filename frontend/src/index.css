@@ -551,7 +551,7 @@ box-shadow: none !important;
   
   }
   .menu-items .menu-item .sub-menu ul {
-	text-align: center;
+	/* text-align: center; */
 	border:1px solid #fff;
   }
   .menu-items .menu-item .sub-menu ul li {
