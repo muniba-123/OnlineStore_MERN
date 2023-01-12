@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   Row,
@@ -28,10 +27,12 @@ import {
   ORDER_STATUS_RESET,
   orderStatuses,
 } from "../constants/order-constants";
+import { baseUrl } from '../constants/Constants';
+
 // import CheckoutForm from "../components/CheckoutForm";
 
 // const stripePromise = axios
-// 	.get('/api/payments/config/stripe-pk')
+// 	.get(`${baseUrl}/api/payments/config/stripe-pk`)
 // 	.then((res) => res.data)
 // 	.then((data) => loadStripe(data.public_key));
 
@@ -53,12 +54,15 @@ const OrderScreen = ({ match, history }) => {
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
   const orderStatus = useSelector((state) => state.orderStatus);
   const { loading: loadingStatus, success: successStatus } = orderStatus;
+  debugger
   if (!loading) {
+
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
+    if(order)
     order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+      order?.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
 

@@ -4,6 +4,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { baseUrl } from '../constants/Constants';
 
 const CARD_ELEMENT_OPTIONS = {
 	style: {
@@ -35,7 +36,7 @@ const CheckoutForm = ({ totalPrice, paymentHandler }) => {
 	useEffect(() => {
 		const createPaymentIntent = async () => {
 			const { data } = await axios.post(
-				'/api/payments/config/stripe-payment-intent',
+				`${baseUrl}/api/payments/config/stripe-payment-intent`,
 				{
 					amount: totalPrice.toFixed(0),
 					currency: 'usd',

@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import colors from 'colors';
 import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/user-model.js';
@@ -35,10 +33,10 @@ const importData = async () => {
     // insert products
     await Product.insertMany(sampleProducts);
 
-    console.log('Data imported...'.green.inverse);
+    console.log('Data imported...');
     process.exit();
   } catch (error) {
-    console.log(`${error}`.red.inverse);
+    console.log(`${error}`);
     process.exit(1);
   }
 };

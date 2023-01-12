@@ -18,6 +18,7 @@ import {
 	CATEGORY_UPDATE_SUCCESS,
 	CATEGORY_UPDATE_FAIL,
 } from '../constants/category-constants';
+import { baseUrl } from '../constants/Constants';
 
 // action creators
 export const listCategories = () => async (
@@ -29,7 +30,7 @@ export const listCategories = () => async (
 		});
 
 		let { data } = await axios.get(
-			`/api/categories`
+			baseUrl+`/api/categories`
 		);
 		if(data?.categories)
    data.categories.unshift({_id:0,name:"All"});
@@ -54,7 +55,7 @@ export const listCategoryDetails = (id) => async (dispatch) => {
 			type: CATEGORY_DETAILS_REQUEST,
 		});
 
-		const { data } = await axios.get(`/api/categories/${id}`);
+		const { data } = await axios.get(baseUrl+`/api/categories/${id}`);
 
 		dispatch({
 			type: CATEGORY_DETAILS_SUCCESS,
@@ -88,7 +89,7 @@ export const deleteCategory = (id) => async (dispatch, getState) => {
 			},
 		};
 
-		await axios.delete(`/api/categories/${id}`, config);
+		await axios.delete(`${baseUrl}/api/categories/${id}`, config);
 
 		dispatch({
 			type: CATEGORY_DELETE_SUCCESS,
@@ -120,7 +121,7 @@ export const createCategory = (Category) => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = await axios.post(`/api/categories`, Category, config);
+		const { data } = await axios.post(`${baseUrl}/api/categories`, Category, config);
 
 		dispatch({
 			type: CATEGORY_UPDATE_SUCCESS,
@@ -155,7 +156,7 @@ export const updateCategory = (Category) => async (dispatch, getState) => {
 		};
 
 		const { data } = await axios.put(
-			`/api/categories/${Category._id}`,
+			`${baseUrl}/api/categories/${Category._id}`,
 			Category,
 			config
 		);

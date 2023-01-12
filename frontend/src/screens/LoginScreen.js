@@ -20,7 +20,6 @@ const LoginScreen = ({ location, history }) => {
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	useEffect(() => {
-		debugger;
 		if (userInfo && userInfo?.isVerified) {
 			history.push(redirect);
 		}

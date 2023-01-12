@@ -177,6 +177,7 @@ const ProductScreen = ({ history, match }) => {
 														as='select'
 														value={qty}
 														onChange={(e) => setQty(e.target.value)}
+														className="w-100"
 													>
 														{[...Array(product.countInStock).keys()].map(
 															(x) => (

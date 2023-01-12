@@ -6,6 +6,7 @@ import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import Axios from 'axios';
 import { USER_LOGIN_ERR_RESET } from '../constants/user-constants';
+import { baseUrl } from '../constants/Constants';
 
 const Code = ({ location, history }) => {
 	const [code, setCode] = useState('');
@@ -19,7 +20,7 @@ useEffect(()=>{
 		e.preventDefault();
 	    Axios
       .post(
-         "/api/users/verifyCode",
+         `${baseUrl}/api/users/verifyCode`,
         {email,code}
       )
       .then((res) => {

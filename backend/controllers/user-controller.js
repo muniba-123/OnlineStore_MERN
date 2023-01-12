@@ -54,9 +54,6 @@ const smtpTransport = nodemailer.createTransport({
 	  pass: process.env.PASSWORD,
 	},
   });
-  console.log(process.env.PASSWORD)
-  console.log(process.env.EMAIL)
-
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,

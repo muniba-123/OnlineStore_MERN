@@ -6,6 +6,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from './SearchBox';
 import { logout } from '../actions/user-actions';
+// import logo from "../assets/icons/logo.png";
+import logo from "../assets/icons/logo2.png";
 
 // call action - useDispatch
 // for bring something from state - useSelector
@@ -26,7 +28,8 @@ const Header = () => {
 			<Navbar variant='none' expand='lg' collapseOnSelect> 
 				<Container>
 					<LinkContainer to='/'>
-						<Navbar.Brand>Consultant Mart</Navbar.Brand>
+						{/* <Navbar.Brand>Consultant Mart</Navbar.Brand> */}
+						<img src={logo} height={120}/>
 					</LinkContainer>
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>

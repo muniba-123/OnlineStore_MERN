@@ -16,6 +16,7 @@ import {
   categories,
   PRODUCT_UPDATE_RESET,
 } from "../constants/product-constants";
+import { baseUrl } from "../constants/Constants";
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
 
@@ -73,7 +74,7 @@ const ProductEditScreen = ({ match, history }) => {
         },
       };
 
-      const { data } = await axios.post("/api/upload", formData, config);
+      const { data } = await axios.post(`${baseUrl}/api/upload`, formData, config);
       setImage(data);
       setUploading(false);
     } catch (error) {

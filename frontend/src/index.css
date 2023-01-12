@@ -342,10 +342,13 @@ header .container{
 	margin:0 !important;
 	padding:0 !important;
 }
+header .container{
+    max-width: unset;
+}
 .navbar{
 	background-color: var(--bg);
 	color: var(--font-primary) !important;
-	padding:1.5rem 50px;
+	padding:0rem 50px;
 }
 .navbar .navbar-brand{
 	color: #fff;
