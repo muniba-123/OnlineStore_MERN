@@ -28,6 +28,7 @@ import {
   orderStatuses,
 } from "../constants/order-constants";
 import { baseUrl } from '../constants/Constants';
+import { toast } from "react-toastify";
 
 // import CheckoutForm from "../components/CheckoutForm";
 
@@ -54,7 +55,6 @@ const OrderScreen = ({ match, history }) => {
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
   const orderStatus = useSelector((state) => state.orderStatus);
   const { loading: loadingStatus, success: successStatus } = orderStatus;
-  debugger
   if (!loading) {
 
     const addDecimals = (num) => {
@@ -72,7 +72,12 @@ const OrderScreen = ({ match, history }) => {
     }
     if (successStatus) {
 		dispatch({ type: ORDER_STATUS_RESET });
-		alert("Status changed")
+		// alert("Status changed")
+    toast.success("Order status changed successfully"
+    , {
+        autoClose: 3000
+    });
+    
 	} else { 
 		if (!order || order._id !== orderId || successDeliver) {
       dispatch({ type: ORDER_PAY_RESET }); // to prevent keep refreshing after payment
@@ -102,7 +107,7 @@ const OrderScreen = ({ match, history }) => {
   ) : (
     <>
       <Meta title="Order Details" />
-      <h1>Order {orderId}</h1>
+      <h1 className="h1">Order {orderId}</h1>
       <Row>
         <Col md={7}>
           <ListGroup variant="flush">

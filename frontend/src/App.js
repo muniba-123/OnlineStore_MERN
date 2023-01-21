@@ -22,6 +22,7 @@ import CategoryEditScreen from './screens/CategoryEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import Code from './screens/Code';
+import { ToastContainer, Slide } from 'react-toastify';
 
 const App = () => {
 	return (
@@ -76,6 +77,7 @@ const App = () => {
 					<Route path='/' component={HomeScreen} exact />
 				</Container>
 			</main>
+			<ToastContainer draggablePercent={60} limit={3} transition={Slide} hideProgressBar={true} autoClose={2000} />
 			<Footer />
 		</Router>
 	);

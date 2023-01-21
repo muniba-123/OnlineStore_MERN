@@ -70,7 +70,7 @@ const CategoryEditScreen = ({ match, history }) => {
       <FormContainer>
         <h1>{categoryId ? "Edit" : "Create"} Category</h1>
         {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+        {errorUpdate && <Message variant="danger">{'Please fill all the required fields.'}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -85,6 +85,7 @@ const CategoryEditScreen = ({ match, history }) => {
                   type="name"
                   placeholder="Enter name"
                   value={name}
+                  required
                   onChange={(e) => setName(e.target.value)}
                 ></Form.Control>
               </Form.Group>

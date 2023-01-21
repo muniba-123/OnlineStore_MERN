@@ -43,7 +43,7 @@ const orderSchema = mongoose.Schema(
       },
       postalCode: {
         type: String,
-        required: true,
+        required: false,
       },
       country: {
         type: String,

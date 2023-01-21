@@ -15,7 +15,6 @@ import { listCategories } from "../actions/category-actions";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
-  // if it does not have a page number, set it to 1
   const pageNumber = match.params.pageNumber || 1;
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -57,7 +56,7 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
-      <div className="d-flex my-4 align-items-center">
+      <div className="d-flex my-4 align-items-center top-bar">
         <h1 className="m-0">Categories</h1>
         <div className="menu-items">
           <div
@@ -85,7 +84,6 @@ const HomeScreen = ({ match }) => {
           </div>
         </div>
       </div>
-
       {loading ? (
         <Loader />
       ) : error ? (

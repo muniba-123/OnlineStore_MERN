@@ -7,25 +7,24 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Meta from "../components/Meta";
 import FormContainer from "../components/FormContainer";
+import { listCategories } from "../actions/category-actions";
+
 import {
   listProductDetails,
   updateProduct,
   createProduct,
 } from "../actions/product-actions";
-import {
-  categories,
-  PRODUCT_UPDATE_RESET,
-} from "../constants/product-constants";
+import { PRODUCT_UPDATE_RESET } from "../constants/product-constants";
 import { baseUrl } from "../constants/Constants";
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState(0);
+  const [countInStock, setCountInStock] = useState(null);
   const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
 
@@ -33,6 +32,11 @@ const ProductEditScreen = ({ match, history }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  const categoryList = useSelector((state) => state.categoryList);
+  let { categories } = categoryList;
+  categories = categories.filter(function (el) {
+    return el._id != 0;
+  });
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -40,7 +44,9 @@ const ProductEditScreen = ({ match, history }) => {
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
-
+  useEffect(() => {
+    dispatch(listCategories());
+  }, []);
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -74,7 +80,11 @@ const ProductEditScreen = ({ match, history }) => {
         },
       };
 
-      const { data } = await axios.post(`${baseUrl}/api/upload`, formData, config);
+      const { data } = await axios.post(
+        `${baseUrl}/api/upload`,
+        formData,
+        config
+      );
       setImage(data);
       setUploading(false);
     } catch (error) {
@@ -84,7 +94,7 @@ const ProductEditScreen = ({ match, history }) => {
   };
 
   const submitHandler = (e) => {
-	e.preventDefault();
+    e.preventDefault();
     if (!productId) {
       dispatch(
         createProduct({
@@ -99,7 +109,7 @@ const ProductEditScreen = ({ match, history }) => {
       );
       return;
     }
-    
+
     dispatch(
       updateProduct({
         _id: productId,
@@ -113,7 +123,6 @@ const ProductEditScreen = ({ match, history }) => {
       })
     );
   };
-
   return (
     <>
       <Link to="/admin/productlist" className="btn my-3">
@@ -122,14 +131,14 @@ const ProductEditScreen = ({ match, history }) => {
       <FormContainer>
         <h1>{productId ? "Edit" : "Create"} Product</h1>
         {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+        {errorUpdate && <Message variant="danger">{'Please fill all the required fields.'}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant="danger">{error}</Message>
         ) : (
           <>
-            <Meta title={productId? `Edit | ${name}`:"Create"} />
+            <Meta title={productId ? `Edit | ${name}` : "Create"} />
             <Form onSubmit={submitHandler}>
               <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>
@@ -137,6 +146,7 @@ const ProductEditScreen = ({ match, history }) => {
                   type="name"
                   placeholder="Enter name"
                   value={name}
+                  required
                   onChange={(e) => setName(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -146,6 +156,7 @@ const ProductEditScreen = ({ match, history }) => {
                   type="number"
                   placeholder="Enter price"
                   value={price}
+                  required
                   onChange={(e) => setPrice(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -153,8 +164,12 @@ const ProductEditScreen = ({ match, history }) => {
                 <Form.Label>Image</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter image url"
+                  placeholder="Image url"
                   value={image}
+                  // onInvalid={F =>if F.target.setCustomValidity('Product image is required')} 
+                  // onInput={F => F.target.setCustomValidity('')} 
+                 required
+                  // disabled
                   onChange={(e) => setImage(e.target.value)}
                 ></Form.Control>
                 <Form.File
@@ -171,6 +186,7 @@ const ProductEditScreen = ({ match, history }) => {
                   type="text"
                   placeholder="Enter brand"
                   value={brand}
+                  required
                   onChange={(e) => setBrand(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -178,15 +194,15 @@ const ProductEditScreen = ({ match, history }) => {
                 <Form.Label>Category</Form.Label>
                 <Form.Control
                   as={"select"}
+                 required
                   placeholder="Select category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-					<option value={null}>Select category</option>
+                  <option value={null}>Select category</option>
                   {categories.map((item, i) => (
-
-                    <option key={i} value={item}>
-                      {item}
+                    <option key={i} value={item.name}>
+                      {item.name}
                     </option>
                   ))}
                 </Form.Control>
@@ -195,6 +211,7 @@ const ProductEditScreen = ({ match, history }) => {
                 <Form.Label>Count In Stock</Form.Label>
                 <Form.Control
                   type="number"
+                  required
                   placeholder="Enter count in stock"
                   value={countInStock}
                   onChange={(e) => setCountInStock(e.target.value)}
@@ -204,6 +221,7 @@ const ProductEditScreen = ({ match, history }) => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
+                  required
                   placeholder="Enter description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}

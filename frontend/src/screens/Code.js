@@ -7,6 +7,7 @@ import FormContainer from '../components/FormContainer';
 import Axios from 'axios';
 import { USER_LOGIN_ERR_RESET } from '../constants/user-constants';
 import { baseUrl } from '../constants/Constants';
+import { toast } from 'react-toastify';
 
 const Code = ({ location, history }) => {
 	const [code, setCode] = useState('');
@@ -27,7 +28,11 @@ useEffect(()=>{
       if(res.isAxiosError)
      setErr("Code is not valid.");
 	 else
-	 alert("Account verified successfully")
+	//  alert("Account verified successfully")
+	 toast.success(`Account verified successfully`
+	 , {
+		 autoClose: 5000
+	 });
 	 history.push("/login")
       })
       .catch((err) => {

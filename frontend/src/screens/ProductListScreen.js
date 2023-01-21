@@ -73,7 +73,7 @@ const ProductListScreen = ({ history, match }) => {
 				<Col>
 					<h1>Products</h1>
 					<Col className='text-right'>
-						<Button className='my-3' >
+						<Button className='my-3 h-auto' >
 							<i className='fas fa-plus mr-1'></i> 
 							<Link to={ `/admin/product` }>
 							Create Product
@@ -116,7 +116,7 @@ const ProductListScreen = ({ history, match }) => {
 									<td>{product.brand}</td>
 									<td>
 										<LinkContainer to={`/admin/product/${product._id}/edit`}>
-											<Button className='btn-sm'>
+											<Button className='btn-sm edit-icon'>
 												<i className='fas fa-edit'></i>
 											</Button>
 										</LinkContainer>

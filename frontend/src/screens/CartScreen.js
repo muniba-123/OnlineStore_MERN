@@ -62,6 +62,7 @@ const CartScreen = ({ match, location, history }) => {
 										<Col md={2}>
 											<Form.Control
 												as='select'
+												className='mw-115'
 												value={item.qty}
 												onChange={(e) =>
 													dispatch(
@@ -106,7 +107,7 @@ const CartScreen = ({ match, location, history }) => {
 							<ListGroup.Item>
 								<Button
 									type='button'
-									className='btn-block'
+									className='btn-block h-auto'
 									disabled={cartItems.length === 0}
 									onClick={checkoutHandler}
 								>

@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import { register } from '../actions/user-actions';
+import { toast } from 'react-toastify';
 
 const RegisterScreen = ({ location, history }) => {
 	const [name, setName] = useState('');
@@ -27,7 +28,11 @@ const RegisterScreen = ({ location, history }) => {
 			history.push("/");
 		}
 		else if(userInfo && !userInfo?.isVerified){
-			alert("A verification code has been sent to your email account.")
+			toast.info("A verification code has been sent to your email account."
+				, {
+					autoClose: 5000
+				});
+			// alert()
 			history.push("/code");
 		}
 	}, [history, userInfo, redirect]);

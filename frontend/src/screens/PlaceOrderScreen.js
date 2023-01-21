@@ -6,6 +6,8 @@ import Message from '../components/Message';
 import Meta from '../components/Meta';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/order-actions';
+import { ORDER_CREATE_RESET } from '../constants/order-constants';
+import { toast } from 'react-toastify';
 
 const PlaceOrderScreen = ({ history }) => {
 	const dispatch = useDispatch();
@@ -30,10 +32,18 @@ const PlaceOrderScreen = ({ history }) => {
 
 	const orderCreate = useSelector((state) => state.orderCreate);
 	const { order, success, error } = orderCreate;
-
+useEffect(()=>{
+debugger
+dispatch({type: ORDER_CREATE_RESET});
+},[])
 	useEffect(() => {
 		if (success) {
-			// alert("Order created successfully");
+			debugger
+			// alert();
+			toast.success("Order created successfully"
+				, {
+					autoClose: 5000
+				});
 			history.push(`/order/${order._id}`);
 		}
 		// eslint-disable-next-line

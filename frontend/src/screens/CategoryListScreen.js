@@ -69,7 +69,7 @@ const CategoryListScreen = ({ history, match }) => {
 				<Col>
 					<h1>Categories</h1>
 					<Col className='text-right'>
-						<Button className='my-3' >
+						<Button className='my-3 h-auto' >
 							<i className='fas fa-plus mr-1'></i> 
 							<Link to={ `/admin/category` }>
 							Create Category
@@ -106,7 +106,7 @@ const CategoryListScreen = ({ history, match }) => {
 									<td>{category.name}</td>
 									<td>
 										<LinkContainer to={`/admin/category/${category._id}/edit`}>
-											<Button className='btn-sm'>
+											<Button className='btn-sm edit-icon'>
 												<i className='fas fa-edit'></i>
 											</Button>
 										</LinkContainer>

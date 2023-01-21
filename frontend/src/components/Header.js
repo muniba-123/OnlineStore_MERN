@@ -7,7 +7,8 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from './SearchBox';
 import { logout } from '../actions/user-actions';
 // import logo from "../assets/icons/logo.png";
-import logo from "../assets/icons/logo2.png";
+// import logo from "../assets/icons/logo2.png";
+import logo from "../assets/icons/logo3.svg";
 
 // call action - useDispatch
 // for bring something from state - useSelector
@@ -29,7 +30,7 @@ const Header = () => {
 				<Container>
 					<LinkContainer to='/'>
 						{/* <Navbar.Brand>Consultant Mart</Navbar.Brand> */}
-						<img src={logo} height={120}/>
+						<img src={logo} height={120} className="logo"/>
 					</LinkContainer>
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>

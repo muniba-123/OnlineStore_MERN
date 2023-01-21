@@ -57,7 +57,7 @@ const UserEditScreen = ({ match, history }) => {
 			<FormContainer>
 				<h1>Edit User</h1>
 				{loadingUpdate && <Loader />}
-				{errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
+				{errorUpdate && <Message variant='danger'>{'Please fill all the required fields.'}</Message>}
 				{loading ? (
 					<Loader />
 				) : error ? (

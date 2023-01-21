@@ -106,7 +106,6 @@ const sendEmailToAdmin=async (order)=>{
       pass: process.env.PASSWORD,
     },
     });
-    debugger
     const admin=await User.findOne({isAdmin:true});
     const mailOptions = {
       from: process.env.EMAIL,

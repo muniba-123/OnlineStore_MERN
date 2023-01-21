@@ -25,6 +25,7 @@ import {
 } from '../actions/user-actions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/product-constants';
 import useIsMounted from '../hooks/useIsMounted';
+import { toast } from 'react-toastify';
 
 const ProductScreen = ({ history, match }) => {
 	const [qty, setQty] = useState(1);
@@ -51,7 +52,11 @@ const ProductScreen = ({ history, match }) => {
 
 	useEffect(() => {
 		if (successProductReview) {
-			alert('Review Submitted!');
+			// alert();
+			toast.success('Review Submitted!'
+				, {
+					autoClose: 5000
+				});
 			setRating(0);
 			setComment('');
 			dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
@@ -109,11 +114,11 @@ const ProductScreen = ({ history, match }) => {
 			) : (
 				<>
 					<Meta title={product.name} />
-					<Row>
-						<Col md={6}>
+					<Row className='product-details-row'>
+						<Col md={4}>
 							<Image src={product.image} alt={product.name} fluid />
 						</Col>
-						<Col md={3}>
+						<Col md={4}>
 							<ListGroup variant='flush'>
 								<ListGroup.Item>
 									<h3>{product.name}</h3>
@@ -149,7 +154,7 @@ const ProductScreen = ({ history, match }) => {
 								</ListGroup.Item>
 							</ListGroup>
 						</Col>
-						<Col md={3}>
+						<Col md={4}>
 							<Card>
 								<ListGroup variant='flush'>
 									<ListGroup.Item>
